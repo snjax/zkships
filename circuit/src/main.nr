@@ -149,25 +149,25 @@ fn main(state_hash: pub Field, pub_data: pub Field, raw_data: [Field; 34], salt:
     validate_ship(new_ships.1, false);
     validate_ship(new_ships.2, false);
 
-    // let hits = (
-    //     check_hit(old_ships.0, incoming_shoots.0),
-    //     check_hit(old_ships.0, incoming_shoots.1),
-    //     check_hit(old_ships.0, incoming_shoots.2),
-    //     check_hit(old_ships.1, incoming_shoots.0),
-    //     check_hit(old_ships.1, incoming_shoots.1),
-    //     check_hit(old_ships.1, incoming_shoots.2),
-    //     check_hit(old_ships.2, incoming_shoots.0),
-    //     check_hit(old_ships.2, incoming_shoots.1),
-    //     check_hit(old_ships.2, incoming_shoots.2)
-    // );
-
-    //let old_ships_alive_0 = true;
-
-    let old_ships_alive = (
-        old_ships.0.d != 0,
-        old_ships.1.d != 0,
-        old_ships.2.d != 0
+    let hits = (
+        check_hit(old_ships.0, incoming_shoots.0),
+        check_hit(old_ships.0, incoming_shoots.1),
+        check_hit(old_ships.0, incoming_shoots.2),
+        check_hit(old_ships.1, incoming_shoots.0),
+        check_hit(old_ships.1, incoming_shoots.1),
+        check_hit(old_ships.1, incoming_shoots.2),
+        check_hit(old_ships.2, incoming_shoots.0),
+        check_hit(old_ships.2, incoming_shoots.1),
+        check_hit(old_ships.2, incoming_shoots.2)
     );
+
+
+
+    // let old_ships_alive = (
+    //     old_ships.0.d != 0,
+    //     old_ships.1.d != 0,
+    //     old_ships.2.d != 0
+    // );
 
     // let new_ships_alive = (
     //     new_ships.0.d != 0,
@@ -289,27 +289,13 @@ fn main(state_hash: pub Field, pub_data: pub Field, raw_data: [Field; 34], salt:
     constrain outgoing_shoots.2.x * 1 == outgoing_shoots.2.x;
     constrain outgoing_shoots.2.y * 1 == outgoing_shoots.2.y;
 
-    // constrain hits.0 & true == hits.0;
-    // constrain hits.1 & true == hits.1;
-    // constrain hits.2 & true == hits.2;
-    // constrain hits.3 & true == hits.3;
-    // constrain hits.4 & true == hits.4;
-    // constrain hits.5 & true == hits.5;
-    // constrain hits.6 & true == hits.6;
-    // constrain hits.7 & true == hits.7;
-    // constrain hits.8 & true == hits.8;
 
-    //constrain old_ships_alive_0 | false == old_ships_alive_0;
 
-    constrain old_ships_alive.0 as Field + old_ships_alive.1 as Field + old_ships_alive.2 as Field + 1 != 0;
+    constrain hits.0 as Field + hits.1 as Field + hits.2 as Field + hits.3 as Field + hits.4 as Field + hits.5 as Field + hits.6 as Field + hits.7 as Field + hits.8 as Field +1 != 0;
+    // constrain old_ships_alive.0 as Field + old_ships_alive.1 as Field + old_ships_alive.2 as Field + 1 != 0;
+    // constrain new_ships_alive.0 as Field + new_ships_alive.1 as Field + new_ships_alive.2 as Field + 1 != 0;
 
-    // constrain old_ships_alive.0 | false == old_ships_alive.0;
-    // constrain old_ships_alive.1 | false == old_ships_alive.1;
-    // constrain old_ships_alive.2 | false == old_ships_alive.2;
 
-    // constrain new_ships_alive.0 & true == new_ships_alive.0;
-    // constrain new_ships_alive.1 & true == new_ships_alive.1;
-    // constrain new_ships_alive.2 & true == new_ships_alive.2;
 
 
 
