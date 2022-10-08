@@ -119,7 +119,7 @@ fn check_hit(s:Ship, h:Shoot) -> bool {
 
 
 
-fn main(pub_data: pub Field, raw_data: [Field; 34]) {
+fn main(old_state_hash: pub Field, new_state_hash: pub Field, pub_data: pub Field, raw_data: [Field; 34], salt:Field) {
     let mut data = [0;34];
     for i in 0..34 {
         data[i] = raw_data[i] as u3;
@@ -276,34 +276,22 @@ fn main(pub_data: pub Field, raw_data: [Field; 34]) {
     constrain pub_data == pub_data2;
 
 
-    // constrain is_initial & true == is_initial;
-    // constrain incoming_shoots.0.x * 1 == incoming_shoots.0.x;
-    // constrain incoming_shoots.0.y * 1 == incoming_shoots.0.y;
-    // constrain incoming_shoots.1.x * 1 == incoming_shoots.1.x;
-    // constrain incoming_shoots.1.y * 1 == incoming_shoots.1.y;
-    // constrain incoming_shoots.2.x * 1 == incoming_shoots.2.x;
-    // constrain incoming_shoots.2.y * 1 == incoming_shoots.2.y;
+    let mut old_state_data = 0;
+    for i in 16..25 {
+        old_state_data = old_state_data * 8 + raw_data[i];
+    };
+    old_state_data = old_state_data * 1208925819614629174706176 + salt;
 
-    // constrain outgoing_shoots.0.x * 1 == outgoing_shoots.0.x;
-    // constrain outgoing_shoots.0.y * 1 == outgoing_shoots.0.y;
-    // constrain outgoing_shoots.1.x * 1 == outgoing_shoots.1.x;
-    // constrain outgoing_shoots.1.y * 1 == outgoing_shoots.1.y;
-    // constrain outgoing_shoots.2.x * 1 == outgoing_shoots.2.x;
-    // constrain outgoing_shoots.2.y * 1 == outgoing_shoots.2.y;
+    let mut new_state_data = 0;
+
+    for i in 25..34 {
+        new_state_data = new_state_data * 8 + raw_data[i];
+    };
+    new_state_data = new_state_data * 1208925819614629174706176 + salt;
 
 
+    constrain old_state_hash == std::hash::mimc_bn254([old_state_data]);
+    constrain new_state_hash == std::hash::mimc_bn254([new_state_data]);
 
-    // constrain hits.0 as Field + hits.1 as Field + hits.2 as Field + hits.3 as Field + hits.4 as Field + hits.5 as Field + hits.6 as Field + hits.7 as Field + hits.8 as Field +1 != 0;
-    // constrain old_ships_alive.0 as Field + old_ships_alive.1 as Field + old_ships_alive.2 as Field + 1 != 0;
-    // constrain new_ships_alive.0 as Field + new_ships_alive.1 as Field + new_ships_alive.2 as Field + 1 != 0;
-
-
-    // constrain state_hash * 1 == state_hash;
-
-    // constrain pub_data * 1 == pub_data;
-    // constrain salt * 1 == salt;
-    // for i in 0..34 {
-    //     constrain raw_data[i] * 1 == raw_data[i];
-    // };
 
 }
