@@ -1,9 +1,10 @@
 node_modules
 .env
+.parcel-cache
+dist
+proofs
+build
 #Hardhat files
 cache
 artifacts
 node_modules
-.parcel-cache
-dist
-proofs
