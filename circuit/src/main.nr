@@ -74,7 +74,10 @@ fn validate_movement(old:Ship, new:Ship, hits:u3) -> bool {
 }
 
 fn check_hit(s:Ship, h:Shoot) -> bool {
-    (s.x == h.x) & (s.y == h.y) 
+    //(s.x == h.x) & (s.y == h.y) 
+    let left = s.x == h.x;
+    let right = s.y == h.y;
+    ((left as Field) * (right as Field)) as bool
 }
 
 // Data structure
