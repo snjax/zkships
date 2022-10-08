@@ -11,6 +11,17 @@ struct Shoot {
     y:u3
 }
 
+fn bnot(x: Field) -> Field {
+    1 - x
+}
+
+fn band(x: Field, y: Field) -> Field {
+    x * y
+}
+
+fn bor(x: Field, y: Field) -> Field {
+    x + y - x * y
+}
 
 
 fn abs_diff(a: u3, b: u3) -> u3 {
@@ -55,12 +66,12 @@ fn validate_ship(s: Ship, is_initial:bool) {
 
 fn validate_collision(s1: Ship, s2: Ship) {
     if s1.d * s2.d != 0 {
-        constrain ((abs_diff(s1.x, s2.x)<=1) & (abs_diff(s1.y, s2.y)<=1)) == false;
+        constrain band((abs_diff(s1.x, s2.x)<=1) as Field, (abs_diff(s1.y, s2.y)<=1) as Field) == 0;
     }
 }
 
 fn validate_shoot(h:Shoot) -> bool {
-    (h.x<5)&(h.y<5)
+    band((h.x<5) as Field, (h.y<5) as Field) as bool
 }
 
 fn validate_movement(old:Ship, new:Ship, hits:u3) -> bool {
@@ -74,10 +85,9 @@ fn validate_movement(old:Ship, new:Ship, hits:u3) -> bool {
 }
 
 fn check_hit(s:Ship, h:Shoot) -> bool {
-    //(s.x == h.x) & (s.y == h.y) 
     let left = s.x == h.x;
     let right = s.y == h.y;
-    ((left as Field) * (right as Field)) as bool
+    band(left as Field, right as Field) as bool
 }
 
 // Data structure
@@ -166,91 +176,91 @@ fn main(state_hash: pub Field, pub_data: pub Field, raw_data: [Field; 34], salt:
 
 
 
-    // let old_ships_alive = (
-    //     old_ships.0.d != 0,
-    //     old_ships.1.d != 0,
-    //     old_ships.2.d != 0
-    // );
+    let old_ships_alive = (
+        old_ships.0.d != 0,
+        old_ships.1.d != 0,
+        old_ships.2.d != 0
+    );
 
-    // let new_ships_alive = (
-    //     new_ships.0.d != 0,
-    //     new_ships.1.d != 0,
-    //     new_ships.2.d != 0
-    // );
-
-
-    // if incoming_shoot_results.0 == 0 {
-    //     let e1 = hits.0 as Field * old_ships_alive.0 as Field;
-    //     let e2 = hits.3 as Field * old_ships_alive.1 as Field;
-    //     let e3 = hits.6 as Field * old_ships_alive.2 as Field;
-    //     constrain e1+e2+e3==0;
-    // }
+    let new_ships_alive = (
+        new_ships.0.d != 0,
+        new_ships.1.d != 0,
+        new_ships.2.d != 0
+    );
 
 
-    // if incoming_shoot_results.1 == 0 {
-    //     let e1 = hits.1 as Field * old_ships_alive.0 as Field;
-    //     let e2 = hits.4 as Field * old_ships_alive.1 as Field;
-    //     let e3 = hits.7 as Field * old_ships_alive.2 as Field;
-    //     constrain e1+e2+e3==0;
-    // }
-
-    // if incoming_shoot_results.2 == 0 {
-    //     let e1 = hits.2 as Field * old_ships_alive.0 as Field;
-    //     let e2 = hits.5 as Field * old_ships_alive.1 as Field;
-    //     let e3 = hits.8 as Field * old_ships_alive.2 as Field;
-    //     constrain e1+e2+e3==0;
-    // }
-
-    // if incoming_shoot_results.0 == 1 {
-    //     let e1 = hits.0 as Field * old_ships_alive.0 as Field * new_ships_alive.0 as Field;
-    //     let e2 = hits.3 as Field * old_ships_alive.1 as Field * new_ships_alive.1 as Field;
-    //     let e3 = hits.6 as Field * old_ships_alive.2 as Field * new_ships_alive.2 as Field;
-    //     constrain e1+e2+e3!=0;
-    // }
-
-    // if incoming_shoot_results.1 == 1 {
-    //     let e1 = hits.1 as Field * old_ships_alive.0 as Field * new_ships_alive.0 as Field;
-    //     let e2 = hits.4 as Field * old_ships_alive.1 as Field * new_ships_alive.1 as Field;
-    //     let e3 = hits.7 as Field * old_ships_alive.2 as Field * new_ships_alive.2 as Field;
-    //     constrain e1+e2+e3!=0;
-    // }
-
-    // if incoming_shoot_results.2 == 1 {
-    //     let e1 = hits.2 as Field * old_ships_alive.0 as Field * new_ships_alive.0 as Field;
-    //     let e2 = hits.5 as Field * old_ships_alive.1 as Field * new_ships_alive.1 as Field;
-    //     let e3 = hits.8 as Field * old_ships_alive.2 as Field * new_ships_alive.2 as Field;
-    //     constrain e1+e2+e3!=0;
-    // }
-
-    // if incoming_shoot_results.0 == 2 {
-    //     let e1 = hits.0 as Field * old_ships_alive.0 as Field * (1 - new_ships_alive.0 as Field);
-    //     let e2 = hits.3 as Field * old_ships_alive.1 as Field * (1 - new_ships_alive.1 as Field);
-    //     let e3 = hits.6 as Field * old_ships_alive.2 as Field * (1 - new_ships_alive.2 as Field);
-    //     constrain e1+e2+e3!=0;
-    // }
-
-    // if incoming_shoot_results.1 == 2 {
-    //     let e1 = hits.1 as Field * old_ships_alive.0 as Field * (1 - new_ships_alive.0 as Field);
-    //     let e2 = hits.4 as Field * old_ships_alive.1 as Field * (1 - new_ships_alive.1 as Field);
-    //     let e3 = hits.7 as Field * old_ships_alive.2 as Field * (1 - new_ships_alive.2 as Field);
-    //     constrain e1+e2+e3!=0;
-    // }
-
-    // if incoming_shoot_results.2 == 2 {
-    //     let e1 = hits.2 as Field * old_ships_alive.0 as Field * (1 - new_ships_alive.0 as Field);
-    //     let e2 = hits.5 as Field * old_ships_alive.1 as Field * (1 - new_ships_alive.1 as Field);
-    //     let e3 = hits.8 as Field * old_ships_alive.2 as Field * (1 - new_ships_alive.2 as Field);
-    //     constrain e1+e2+e3!=0;
-    // }
+    if incoming_shoot_results.0 == 0 {
+        let e1 = hits.0 as Field * old_ships_alive.0 as Field;
+        let e2 = hits.3 as Field * old_ships_alive.1 as Field;
+        let e3 = hits.6 as Field * old_ships_alive.2 as Field;
+        constrain e1+e2+e3==0;
+    }
 
 
-    // let actions = validate_movement(old_ships.0, new_ships.0, hits.0 as u3 + hits.1 as u3 + hits.2 as u3) as u3 + 
-    //               validate_movement(old_ships.1, new_ships.1, hits.3 as u3 + hits.4 as u3 + hits.5 as u3) as u3 + 
-    //               validate_movement(old_ships.2, new_ships.2, hits.6 as u3 + hits.7 as u3 + hits.8 as u3) as u3 +
-    //               validate_shoot(outgoing_shoots.0) as u3 +
-    //               validate_shoot(outgoing_shoots.1) as u3 +
-    //               validate_shoot(outgoing_shoots.2) as u3;
-    // constrain actions == 3;
+    if incoming_shoot_results.1 == 0 {
+        let e1 = hits.1 as Field * old_ships_alive.0 as Field;
+        let e2 = hits.4 as Field * old_ships_alive.1 as Field;
+        let e3 = hits.7 as Field * old_ships_alive.2 as Field;
+        constrain e1+e2+e3==0;
+    }
+
+    if incoming_shoot_results.2 == 0 {
+        let e1 = hits.2 as Field * old_ships_alive.0 as Field;
+        let e2 = hits.5 as Field * old_ships_alive.1 as Field;
+        let e3 = hits.8 as Field * old_ships_alive.2 as Field;
+        constrain e1+e2+e3==0;
+    }
+
+    if incoming_shoot_results.0 == 1 {
+        let e1 = hits.0 as Field * old_ships_alive.0 as Field * new_ships_alive.0 as Field;
+        let e2 = hits.3 as Field * old_ships_alive.1 as Field * new_ships_alive.1 as Field;
+        let e3 = hits.6 as Field * old_ships_alive.2 as Field * new_ships_alive.2 as Field;
+        constrain e1+e2+e3!=0;
+    }
+
+    if incoming_shoot_results.1 == 1 {
+        let e1 = hits.1 as Field * old_ships_alive.0 as Field * new_ships_alive.0 as Field;
+        let e2 = hits.4 as Field * old_ships_alive.1 as Field * new_ships_alive.1 as Field;
+        let e3 = hits.7 as Field * old_ships_alive.2 as Field * new_ships_alive.2 as Field;
+        constrain e1+e2+e3!=0;
+    }
+
+    if incoming_shoot_results.2 == 1 {
+        let e1 = hits.2 as Field * old_ships_alive.0 as Field * new_ships_alive.0 as Field;
+        let e2 = hits.5 as Field * old_ships_alive.1 as Field * new_ships_alive.1 as Field;
+        let e3 = hits.8 as Field * old_ships_alive.2 as Field * new_ships_alive.2 as Field;
+        constrain e1+e2+e3!=0;
+    }
+
+    if incoming_shoot_results.0 == 2 {
+        let e1 = hits.0 as Field * old_ships_alive.0 as Field * (1 - new_ships_alive.0 as Field);
+        let e2 = hits.3 as Field * old_ships_alive.1 as Field * (1 - new_ships_alive.1 as Field);
+        let e3 = hits.6 as Field * old_ships_alive.2 as Field * (1 - new_ships_alive.2 as Field);
+        constrain e1+e2+e3!=0;
+    }
+
+    if incoming_shoot_results.1 == 2 {
+        let e1 = hits.1 as Field * old_ships_alive.0 as Field * (1 - new_ships_alive.0 as Field);
+        let e2 = hits.4 as Field * old_ships_alive.1 as Field * (1 - new_ships_alive.1 as Field);
+        let e3 = hits.7 as Field * old_ships_alive.2 as Field * (1 - new_ships_alive.2 as Field);
+        constrain e1+e2+e3!=0;
+    }
+
+    if incoming_shoot_results.2 == 2 {
+        let e1 = hits.2 as Field * old_ships_alive.0 as Field * (1 - new_ships_alive.0 as Field);
+        let e2 = hits.5 as Field * old_ships_alive.1 as Field * (1 - new_ships_alive.1 as Field);
+        let e3 = hits.8 as Field * old_ships_alive.2 as Field * (1 - new_ships_alive.2 as Field);
+        constrain e1+e2+e3!=0;
+    }
+
+
+    let actions = validate_movement(old_ships.0, new_ships.0, hits.0 as u3 + hits.1 as u3 + hits.2 as u3) as u3 + 
+                  validate_movement(old_ships.1, new_ships.1, hits.3 as u3 + hits.4 as u3 + hits.5 as u3) as u3 + 
+                  validate_movement(old_ships.2, new_ships.2, hits.6 as u3 + hits.7 as u3 + hits.8 as u3) as u3 +
+                  validate_shoot(outgoing_shoots.0) as u3 +
+                  validate_shoot(outgoing_shoots.1) as u3 +
+                  validate_shoot(outgoing_shoots.2) as u3;
+    constrain actions == 3;
 
     
     let salt2 = salt as u80;
@@ -277,38 +287,34 @@ fn main(state_hash: pub Field, pub_data: pub Field, raw_data: [Field; 34], salt:
     
 
 
-    constrain is_initial & true == is_initial;
-    constrain incoming_shoots.0.x * 1 == incoming_shoots.0.x;
-    constrain incoming_shoots.0.y * 1 == incoming_shoots.0.y;
-    constrain incoming_shoots.1.x * 1 == incoming_shoots.1.x;
-    constrain incoming_shoots.1.y * 1 == incoming_shoots.1.y;
-    constrain incoming_shoots.2.x * 1 == incoming_shoots.2.x;
-    constrain incoming_shoots.2.y * 1 == incoming_shoots.2.y;
+    // constrain is_initial & true == is_initial;
+    // constrain incoming_shoots.0.x * 1 == incoming_shoots.0.x;
+    // constrain incoming_shoots.0.y * 1 == incoming_shoots.0.y;
+    // constrain incoming_shoots.1.x * 1 == incoming_shoots.1.x;
+    // constrain incoming_shoots.1.y * 1 == incoming_shoots.1.y;
+    // constrain incoming_shoots.2.x * 1 == incoming_shoots.2.x;
+    // constrain incoming_shoots.2.y * 1 == incoming_shoots.2.y;
 
-    constrain outgoing_shoots.0.x * 1 == outgoing_shoots.0.x;
-    constrain outgoing_shoots.0.y * 1 == outgoing_shoots.0.y;
-    constrain outgoing_shoots.1.x * 1 == outgoing_shoots.1.x;
-    constrain outgoing_shoots.1.y * 1 == outgoing_shoots.1.y;
-    constrain outgoing_shoots.2.x * 1 == outgoing_shoots.2.x;
-    constrain outgoing_shoots.2.y * 1 == outgoing_shoots.2.y;
+    // constrain outgoing_shoots.0.x * 1 == outgoing_shoots.0.x;
+    // constrain outgoing_shoots.0.y * 1 == outgoing_shoots.0.y;
+    // constrain outgoing_shoots.1.x * 1 == outgoing_shoots.1.x;
+    // constrain outgoing_shoots.1.y * 1 == outgoing_shoots.1.y;
+    // constrain outgoing_shoots.2.x * 1 == outgoing_shoots.2.x;
+    // constrain outgoing_shoots.2.y * 1 == outgoing_shoots.2.y;
 
 
 
-    constrain hits.0 as Field + hits.1 as Field + hits.2 as Field + hits.3 as Field + hits.4 as Field + hits.5 as Field + hits.6 as Field + hits.7 as Field + hits.8 as Field +1 != 0;
+    // constrain hits.0 as Field + hits.1 as Field + hits.2 as Field + hits.3 as Field + hits.4 as Field + hits.5 as Field + hits.6 as Field + hits.7 as Field + hits.8 as Field +1 != 0;
     // constrain old_ships_alive.0 as Field + old_ships_alive.1 as Field + old_ships_alive.2 as Field + 1 != 0;
     // constrain new_ships_alive.0 as Field + new_ships_alive.1 as Field + new_ships_alive.2 as Field + 1 != 0;
 
 
+    // constrain state_hash * 1 == state_hash;
 
-
-
-
-    constrain state_hash * 1 == state_hash;
-
-    constrain pub_data * 1 == pub_data;
-    constrain salt * 1 == salt;
-    for i in 0..34 {
-        constrain raw_data[i] * 1 == raw_data[i];
-    };
+    // constrain pub_data * 1 == pub_data;
+    // constrain salt * 1 == salt;
+    // for i in 0..34 {
+    //     constrain raw_data[i] * 1 == raw_data[i];
+    // };
 
 }
