@@ -60,7 +60,7 @@ let data = {
         {x:0, y:2, d:3},
     ],
 };
-let salt = 42;
+
 
 let raw_data = flatten_object(data);
 
@@ -69,18 +69,14 @@ let raw_data = flatten_object(data);
 (async() => { 
     const barretenberg = await BarretenbergWasm.new();
     await barretenberg.init();
-    const pedersen = new SinglePedersen(barretenberg);
+
 
     let pub_data = bigint_to_bytes32(u3_list_to_bigint(raw_data.slice(0, 16)));
-    //let data_compressed = u3_list_to_bigint(raw_data);
-    //let state_hash = "0x"+pedersen.compressInputs(serialise_inputs([data_compressed])).toString('hex');
-    //let state_hash = "0x"+pedersen.compressInputs(serialise_inputs(raw_data)).toString('hex');
-    let state_hash = bigint_to_bytes32((u3_list_to_bigint(raw_data)<<80n)+BigInt(salt));
-
+    
 
     console.log(`state_hash="${state_hash}"`);
     console.log(`pub_data="${pub_data}"`);
     console.log(`raw_data=${JSON.stringify(raw_data.map(e=>e.toString()))}`);
-    console.log(`salt="${salt}"`);
+
     
 })();
