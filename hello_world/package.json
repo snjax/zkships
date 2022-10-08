@@ -1,0 +1,9 @@
+{
+  "name": "hello_world",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "@noir-lang/barretenberg": "^2.19.0",
+    "@noir-lang/noir_wasm": "^0.10.0"
+  }
+}

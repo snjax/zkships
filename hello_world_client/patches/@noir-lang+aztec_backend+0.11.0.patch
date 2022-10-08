@@ -1,0 +1,23 @@
+diff --git a/node_modules/@noir-lang/aztec_backend/aztec_backend.js b/node_modules/@noir-lang/aztec_backend/aztec_backend.js
+index 9b9b13c..87bf363 100644
+--- a/node_modules/@noir-lang/aztec_backend/aztec_backend.js
++++ b/node_modules/@noir-lang/aztec_backend/aztec_backend.js
+@@ -1,7 +1,6 @@
+ let imports = {};
+ imports['__wbindgen_placeholder__'] = module.exports;
+ let wasm;
+-const { TextEncoder, TextDecoder } = require(`util`);
+ 
+ const heap = new Array(32).fill(undefined);
+ 
+@@ -673,8 +672,8 @@ module.exports.__wbindgen_closure_wrapper178 = function(arg0, arg1, arg2) {
+     return addHeapObject(ret);
+ };
+ 
+-const path = require('path').join(__dirname, 'aztec_backend_bg.wasm');
+-const bytes = require('fs').readFileSync(path);
++const fs = require('fs');
++const bytes = fs.readFileSync(__dirname + '/aztec_backend_bg.wasm');
+ 
+ const wasmModule = new WebAssembly.Module(bytes);
+ const wasmInstance = new WebAssembly.Instance(wasmModule, imports);
