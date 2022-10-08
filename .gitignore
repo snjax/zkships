@@ -3,7 +3,6 @@ node_modules
 .parcel-cache
 dist
 proofs
-build
 #Hardhat files
 cache
 artifacts
