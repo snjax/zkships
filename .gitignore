@@ -6,3 +6,4 @@ artifacts
 node_modules
 .parcel-cache
 dist
+proofs
