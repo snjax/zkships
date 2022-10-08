@@ -103,10 +103,10 @@ fn check_hit(s:Ship, h:Shoot) -> bool {
 // consider destroyed ship position as (5, 5)
 // consider shoot to nothing as (5, 5)
 
-fn main(state_hash: pub Field, pub_data: pub Field, rawdata: [Field; 34], salt: Field) {
+fn main(state_hash: pub Field, pub_data: pub Field, raw_data: [Field; 34], salt: Field) {
     let mut data = [0;34];
     for i in 0..34 {
-        data[i] = rawdata[i] as u3;
+        data[i] = raw_data[i] as u3;
     };
 
     let is_initial = data[0] as bool;
@@ -118,6 +118,7 @@ fn main(state_hash: pub Field, pub_data: pub Field, rawdata: [Field; 34], salt: 
         load_shoot(data, 6),
         load_shoot(data, 8)
     );
+
     let outgoing_shoots = (
         load_shoot(data, 10),
         load_shoot(data, 12),
@@ -247,12 +248,12 @@ fn main(state_hash: pub Field, pub_data: pub Field, rawdata: [Field; 34], salt: 
     constrain actions == 3;
 
     
-    let salt = salt as u80;
+    let salt2 = salt as u80;
 
     let mut pub_data2 = 0;
 
     for i in 0 .. 16 {
-        pub_data2 = pub_data2 * 8 + rawdata[i];
+        pub_data2 = pub_data2 * 8 + raw_data[i];
     };
 
     constrain pub_data2 == pub_data;
@@ -260,11 +261,23 @@ fn main(state_hash: pub Field, pub_data: pub Field, rawdata: [Field; 34], salt: 
     let mut hash_data = pub_data2;
 
     for i in 16..34 {
-        hash_data = hash_data * 8 + rawdata[i];
+        hash_data = hash_data * 8 + raw_data[i];
     };
 
     // 80 bit shift
-    hash_data = hash_data * 1208925819614629174706176 + (salt as Field);
+    hash_data = hash_data * 1208925819614629174706176 + (salt2 as Field);
+    // let hash = std::hash::pedersen(raw_data);
+    constrain state_hash == hash_data;
 
-    constrain state_hash == std::hash::pedersen([hash_data])[0];
+    
+
+
+
+    constrain state_hash * 1 == state_hash;
+    constrain pub_data * 1 == pub_data;
+    constrain salt * 1 == salt;
+    for i in 0..34 {
+        constrain raw_data[i] * 1 == raw_data[i];
+    };
+
 }
