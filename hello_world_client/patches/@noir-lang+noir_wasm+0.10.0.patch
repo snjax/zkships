@@ -1,0 +1,28 @@
+diff --git a/node_modules/@noir-lang/noir_wasm/noir_wasm.js b/node_modules/@noir-lang/noir_wasm/noir_wasm.js
+index d1bae30..fe957de 100644
+--- a/node_modules/@noir-lang/noir_wasm/noir_wasm.js
++++ b/node_modules/@noir-lang/noir_wasm/noir_wasm.js
+@@ -1,8 +1,10 @@
+ let imports = {};
+ imports['__wbindgen_placeholder__'] = module.exports;
+ let wasm;
+-const { read_file } = require(String.raw`./snippets/fm-cffb18dcbd478425/file_reader.js`);
+-const { TextEncoder, TextDecoder } = require(`util`);
++
++function read_file(path) {
++    return fs.readFileSync(path, { encoding: "utf8" });
++}
+ 
+ const heap = new Array(32).fill(undefined);
+ 
+@@ -349,8 +351,8 @@ module.exports.__wbindgen_memory = function() {
+     return addHeapObject(ret);
+ };
+ 
+-const path = require('path').join(__dirname, 'noir_wasm_bg.wasm');
+-const bytes = require('fs').readFileSync(path);
++const fs = require('fs');
++const bytes = fs.readFileSync(__dirname + '/noir_wasm_bg.wasm');
+ 
+ const wasmModule = new WebAssembly.Module(bytes);
+ const wasmInstance = new WebAssembly.Instance(wasmModule, imports);
