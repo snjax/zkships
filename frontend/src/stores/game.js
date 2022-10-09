@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+// import { generateShipsProof } from '@/utils/prover'
 
 const FIELD_SIZE = 5
 const NUM_CELLS = FIELD_SIZE * FIELD_SIZE
@@ -24,6 +25,8 @@ export const useGameStore = defineStore('game', () => {
   const selectedCell = ref(null)
   const gameState = ref(GameState.PREPARING)
   const turnMoves = ref([])
+  const incomingAttacks = ref([])
+  const incomingAttacksResults = ref([0,0,0])
 
   function generateShips() {
     if (gameState.value !== GameState.PREPARING) {
@@ -131,10 +134,77 @@ export const useGameStore = defineStore('game', () => {
     }
   }
 
-  function endTurn() {
+  function receiveAttacks(attacks) {
+    for (const [index, attackCell] of attacks.entries()) {
+      const ship = findShip(attackCell)
+      if (ship && ship.health > 0) {
+        incomingAttacksResults.value[index] = 1
+        ship.health -= 1
+      }
+    }
+
+    incomingAttacks.value = attacks
+  }
+
+  async function startTurn() {
+    if (gameState.value !== GameState.WAITING) {
+      console.warn('Cannot start turn in this state')
+      return
+    }
+
+    gameState.value = GameState.PLAYING
+    turnMoves.value = []
+  }
+
+  async function endTurn() {
     gameState.value = GameState.WAITING
     const moves = turnMoves.value
+
+    // map coordinates to x, y
+    // const incoming_shot_state = incomingAttacks.value.map(attack => {
+    //   return {
+    //     x: attack % FIELD_SIZE,
+    //     y: Math.floor(attack / FIELD_SIZE),
+    //   }
+    // }
+
+    // const incoming_shot_result = incoming_shot_state.map(shot => {
+    //   if () {
+    //
+    //   }
+    // }
+
+    // const data = {
+    //   is_initial: 0,
+    //   incoming_shot_result: [1, 0, 0],
+    //   incoming_shot_state: [
+    //     {x:0, y:0}, {x:1, y:0}, {x:5,y:5}
+    //   ],
+    //   outgoing_shot_state: [
+    //     {x:1, y:1}, {x:2, y:3}, {x:5,y:5}
+    //   ],
+    //   old_ships:[
+    //     {x:0, y:0, d:3},
+    //     {x:2, y:0, d:3},
+    //     {x:0, y:2, d:3},
+    //   ],
+    //   new_ships:[
+    //     {x:1, y:0, d:2},
+    //     {x:2, y:0, d:3},
+    //     {x:0, y:2, d:3},
+    //   ],
+    // };
+    //
+    // const proof = await generateShipsProof({
+    //
+    // })
+
+    // TODO: send tx to blockchain
+
     turnMoves.value = []
+    incomingAttacks.value = []
+    incomingAttacksResults.value = []
+
     return moves
   }
 
@@ -150,7 +220,7 @@ export const useGameStore = defineStore('game', () => {
     gameState.value = GameState.PLAYING
   }
 
-  return { ships, generateShips, selectCell, isShip, selectedCell, gameState, startGame, attackShip, moveShip, endTurn, turnMoves, cancelMove }
+  return { ships, generateShips, selectCell, isShip, selectedCell, gameState, startGame, attackShip, moveShip, endTurn, turnMoves, cancelMove, receiveAttacks, startTurn }
 })
 
 function randomShip() {
@@ -162,7 +232,7 @@ function randomShip() {
   }
 }
 
-function randomRange(min, max) {
+export function randomRange(min, max) {
   min = Math.ceil(min)
   max = Math.floor(max)
   return Math.floor(Math.random() * (max - min + 1)) + min
