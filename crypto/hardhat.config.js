@@ -12,10 +12,9 @@ module.exports = {
       {
         version: "0.8.14",
         settings: {
-          viaIR: true,
           optimizer: {
             enabled: true,
-            runs: 1,
+            runs: 100000,
           },
         },
       },
