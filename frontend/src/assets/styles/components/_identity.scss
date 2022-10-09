@@ -1,0 +1,29 @@
+.identity{
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+
+  &__wallet{
+    color: #2D2E52;
+    margin-right: 10px;
+
+    & > div:first-of-type{
+      font-size: 16px;
+    }
+
+    & > div:last-of-type{
+      font-size: 12px;
+    }
+  }
+
+  &__logout{
+    align-self: center;
+    text-align: center;
+    transition: transform .15s ease;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateX(3px);
+    }
+  }
+}

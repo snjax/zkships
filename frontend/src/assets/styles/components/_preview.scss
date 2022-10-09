@@ -1,0 +1,223 @@
+.preview{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--preview-bg);
+  z-index: 30;
+  display: none;
+
+  &__content{
+    position: absolute;
+    right: -100%;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    max-width: 700px;
+    background: var(--preview-content-bg);
+    padding: 30px;
+    display: grid;
+    grid-template-columns: 100%;
+    //grid-template-rows: auto auto auto 1fr auto;
+    grid-template-rows: auto auto auto 1fr;
+    gap: 20px;
+  }
+
+  &.active,
+  &.close{
+    display: block;
+  }
+
+  &.active &__content{
+    animation: preview-open .3s ease-in-out;
+    animation-fill-mode: forwards
+  }
+
+  &.close &__content{
+    animation: preview-close .3s ease-in-out;
+    animation-fill-mode: forwards
+  }
+
+  @keyframes preview-open {
+    from {
+      right: -100%
+    }
+    to {
+      right: 0
+    }
+  }
+  @keyframes preview-close {
+    from {
+      right: 0
+    }
+    to {
+      right: -100%
+    }
+  }
+
+  &__title{
+    display: grid;
+    grid-template-columns: 30px auto;
+    font-size: 18px;
+    grid-template-areas:
+          "close title"
+          "info info";
+    font-weight: 500;
+    gap: 5px;
+
+    & > div{
+      align-self: center;
+
+      &:nth-child(1){
+        grid-area: close;
+      }
+      &:nth-child(2){
+        grid-area: title;
+      }
+      &:nth-child(3){
+        grid-area: info;
+        font-size: 12px;
+
+        svg path{
+          fill: var(--link-color)
+        }
+      }
+
+      &:nth-child(3) a + a{
+        margin: 0 10px
+      }
+    }
+  }
+
+  &__close{
+    padding: 5px;
+    justify-self: center;
+    cursor: pointer;
+
+    svg{
+      width: 20px;
+
+      path{
+        fill: var(--icon-color)
+      }
+    }
+  }
+
+  &__area{
+    height: 160px;
+    //display: flex;
+    //justify-content: center;
+    align-items: center;
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 350px;
+  }
+
+  &__inside{
+    height: 100%;
+    overflow: auto;
+    display: grid;
+    grid-template-columns: 110px 110px 110px;
+    gap: 10px;
+
+    & > div{
+      position: relative;
+    }
+
+    & > div > div:first-child{
+      height: 100px;
+      background-size: contain !important;
+    }
+
+    & > div > div:nth-child(2){
+      padding-top: 5px;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .rm{
+      position: absolute;
+      right: 0;
+      top: 0;
+      cursor: pointer;
+
+      svg{
+        width: 15px;
+
+        path{
+          stroke: #333333;
+        }
+      }
+    }
+  }
+
+  &__token{
+    width: 140px;
+    height: 140px;
+    justify-self: center;
+  }
+
+  &__sub-title{
+    font-size: 18px;
+    padding-bottom: 10px;
+  }
+
+  &__modifiers{
+    overflow: auto;
+
+    .contract__name{
+      //padding: 0 0 10px 0;
+      font-size: 16px;
+    }
+
+    .contract__tokens{
+      padding: 0;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+    .token{
+      width: 120px;
+    }
+
+    .token__img{
+      width: 100px;
+      height: 100px;
+    }
+
+    .token__name{
+      font-size: 12px;
+    }
+  }
+
+  &__controls{
+    display: flex;
+    justify-content: space-between;
+
+    .btn{
+      display: inline-block;
+      padding: 10px 30px;
+    }
+  }
+
+  &__nav{
+    display: flex;
+    justify-content: space-between;
+
+    .btn{
+      display: inline-block;
+      flex-grow: 1;
+      flex-shrink: 1;
+      border-radius: 0;
+
+      svg path{
+        fill: var(--btn-color)
+      }
+    }
+  }
+
+  &__section{
+    overflow: auto;
+  }
+}

@@ -1,0 +1,142 @@
+.header{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  & > div:first-of-type{
+    align-self: center;
+  }
+
+  &__return{
+    position: relative;
+    padding: 5px;
+    display: inline-grid;
+    grid-template-columns: 15px auto;
+    gap: 5px;
+    cursor: pointer;
+    align-self: center;
+
+    span:first-of-type{
+      justify-self: center;
+      align-self: center;
+    }
+
+    svg{
+      width: 100%;
+
+      path{
+        fill: var(--icon-color)
+      }
+    }
+  }
+
+  &__right{
+    width: 35%;
+
+
+    & > div{
+      align-self: center;
+    }
+  }
+
+  @media (min-width: $mobile-width) {
+    display: block;
+  }
+}
+
+.header__right-wrap {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.header__right__balance {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--box-bg);
+  border-radius: var(--radius);
+  margin-right: 5px;
+  padding: 10px;
+  max-width: 100px;
+  cursor: auto;
+
+  b {
+    color: var(--link-color);
+  }
+}
+
+.header__right {
+  &.mobile {
+    display: block;
+
+    @media (min-width: $mobile-width) {
+      display: none;
+    }
+
+    &.active {
+      .box {
+        background: #F9F9FF;
+      }
+    }
+  }
+
+  &.desktop {
+    display: none;
+
+    @media (min-width: $mobile-width) {
+      display: block;
+    }
+  }
+}
+
+.header__mobile-menu {
+  display: block;
+  position: absolute;
+  top: 94px;
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 94px);
+
+  @media (min-width: $mobile-width) {
+    display: none;
+  }
+}
+
+.header__mobile-menu-inner {
+  position: absolute;
+  width: 100%;
+  padding: 8px 0;
+  background-color: #fff;
+  border-top: 1px solid #EEE8FF;
+  border-radius: 0 0 12px 12px;
+  z-index: 5;
+}
+
+.header__mobile-menu__item {
+  display: flex;
+  padding: 8px 16px;
+  cursor: pointer;
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+
+  span {
+    font-size: 16px;
+    margin-left: 8px;
+  }
+
+  &:hover {
+    background-color: #eff0fd;
+  }
+}
+
+.header__mobile-menu__bg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 4;
+  background: #2D2E52;
+  opacity: .7;
+  cursor: pointer;
+}

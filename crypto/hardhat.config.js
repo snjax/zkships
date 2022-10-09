@@ -30,8 +30,8 @@ module.exports = {
       url: process.env.ROPSTEN_URL,
       accounts: [process.env.PRIVATE_KEY],
     },
-    rinkeby: {
-      url: process.env.RINKEBY_URL,
+    goerli: {
+      url: process.env.GOERLI_URL,
       accounts: [process.env.PRIVATE_KEY],
     },
     polygon: {
@@ -40,9 +40,7 @@ module.exports = {
     },
     mumbay:{  //polygon
       url: process.env.MUMBAY_URL,
-      accounts: [process.env.PRIVATE_KEY],
-      gas: 2100000,
-      gasPrice: 8000000000
+      accounts: [process.env.PRIVATE_KEY]
     }
   },
   etherscan: {

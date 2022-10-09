@@ -1,0 +1,14 @@
+[
+  {
+    "tokenId": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+    "img": "/img/tokens/notfound.png",
+    "name": "USD Coin (Pos)",
+    "symbol": "USDC"
+  },
+  {
+    "tokenId": "0x0165b733e860b1674541BB7409f8a4743A564157",
+    "img": "/img/tokens/notfound.png",
+    "name": "DAI Stablecoin",
+    "symbol": "DAI"
+  }
+]

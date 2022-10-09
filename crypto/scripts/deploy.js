@@ -3,10 +3,10 @@ const { ethers, upgrades } = require("hardhat");
 async function main() {
   const [admin] = await ethers.getSigners();
 
-  const BaseNFT = await ethers.getContractFactory("BaseNFT");
-  const base = await BaseNFT.deploy();
-  await base.deployed();
-  console.log("nft contract deployed to:", base.address);
+  const ZKShips = await ethers.getContractFactory("zkShips");
+  const zkShips = await upgrades.deployProxy(ZKShips, ["zkShips", "zkShips"]);
+  await zkShips.deployed();
+  console.log("zkShips contart deployed to:", zkShips.address);
 }
 
 main()

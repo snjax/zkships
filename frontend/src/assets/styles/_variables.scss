@@ -1,0 +1,51 @@
+$font-family: 'Inter', sans-serif;
+$assets: '/img/';
+
+$mobile-width: 560px;
+
+:root {
+  --main-bg: #F5F5F5;
+  --icon-color: #333;
+
+  --btn-color: #fff;
+  --btn-color_active: #fff;
+  --btn-bg: #846BCB;
+  --btn-bg_active: #7d5cd8;
+
+  --box-bg: #F8F8FF;
+
+  --main-color: #900;
+  --sub-color: #444;
+  --radius: 5px;
+  --link-color: #2283cb;
+  --contract-bg: #fff;
+  --token-bg: rgba(200, 200, 200, .075);
+  --token-bg_hover: rgba(200, 200, 200, .3);
+  --token-bg_selected: rgba(99,230,190, .5);
+  --token-border_selected: rgba(99,230,190, 1);
+
+  --preview-bg: rgba(0, 0, 0, 0.1);
+  --preview-content-bg: #fff;
+
+  --loader-color: #399ce5;
+
+  --toggle-bg: #a1a6a0;
+  --toggle-bg_active: #399ce5;
+
+  --not-active-bg: #a1a6a0;
+
+  --input-border: rgba(50, 50, 50, .6);
+
+  --modal-bg: rgba(0,0,0,0.5);
+  --modal-content-bg: #fff;
+
+  --form-offset: 20px;
+
+  --wallet-option-bg: #627EEA;
+  --wallet-option-icon: #fff;
+
+  --red-btn-color: #fff;
+  --red-btn-border: #F96B8A;
+
+  --search-background: #fff;
+}

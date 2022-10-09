@@ -1,0 +1,38 @@
+.token{
+  background: var(--token-bg);
+  position: relative;
+  width: 140px;
+  margin: auto;
+  padding: 10px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  border: 1px solid transparent;
+
+  &:hover{
+    background: var(--token-bg_hover);
+  }
+
+  &__img{
+    width: 120px;
+    height: 120px;
+  }
+
+  &__name{
+    padding-top: 5px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    color: var(--link-color)
+  }
+
+  &.selected{
+    background: var(--token-bg_selected);
+    border-color: var(--token-border_selected)
+  }
+
+  &__buy{
+    margin-top: 5px;
+    padding: 7px 10px;
+  }
+}
