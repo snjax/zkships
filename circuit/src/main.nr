@@ -277,6 +277,7 @@ fn main(old_state_hash: pub Field, new_state_hash: pub Field, pub_data: pub Fiel
 
 
     let mut old_state_data = 0;
+    let salt = ((salt as u80) as Field);
     for i in 16..25 {
         old_state_data = old_state_data * 8 + raw_data[i];
     };
