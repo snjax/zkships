@@ -116,3 +116,13 @@ fn main(solnHash: pub Field, raw_data: [Field; 2], salt: Field) {
     constrain solnHash == hash;
 }
 ```
+
+### WASM
+
+Next patches were required for WASM worker:
+https://github.com/snjax/zkships/tree/master/worker/patches
+
+
+### Apple silicon mac issue
+
+Nargo build does not work on Mac computers with Apple silicon. System libraries path is incorrect in rust wrapper for barretenberg.
