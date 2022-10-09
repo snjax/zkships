@@ -42,6 +42,20 @@ node test/generate_sample_inputs.js > Prover.toml
 nargo prove p
 ```
 
+### Frontend
+
+Game UI:
+
+<img width="759" alt="battle" src="https://user-images.githubusercontent.com/86690666/194761378-ffa33448-a3a3-460d-be51-da1498b06ff7.png">
+
+Wallet connection:
+
+<img width="577" alt="wallet_connection" src="https://user-images.githubusercontent.com/86690666/194761469-4167f52e-142c-41e6-a2ef-754d24aaff6d.png">
+
+Game creation:
+
+<img width="701" alt="new_game" src="https://user-images.githubusercontent.com/86690666/194761422-007389b5-b872-476a-9904-835754d08efc.png">
+
 
 ## Explored Noir issues
 
@@ -81,7 +95,7 @@ fn main(x : Field, y : pub Field) {
 
 ### Pedersen hash error:
 
-'nargo compile' fails when Pedersen hash is used:
+'nargo compile' can fail when Pedersen hash is used:
 
 	thread 'main' panicked at 'Cannot find witness assignment for GadgetInput { witness: Witness(5), num_bits: 254 }', crates/acvm/src/pwg/mod.rs:18:17
 	note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
