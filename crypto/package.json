@@ -1,7 +1,7 @@
 {
   "name": "hardhat-project",
   "scripts": {
-    "deploy-base": "npx hardhat run --network mumbay scripts/deployBaseNFT.js",
+    "deploy": "npx hardhat run --network mumbay scripts/deploy.js"
   },
   "license": "MIT",
   "devDependencies": {

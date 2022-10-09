@@ -40,9 +40,7 @@ module.exports = {
     },
     mumbay:{  //polygon
       url: process.env.MUMBAY_URL,
-      accounts: [process.env.PRIVATE_KEY],
-      gas: 2100000,
-      gasPrice: 8000000000
+      accounts: [process.env.PRIVATE_KEY]
     }
   },
   etherscan: {
