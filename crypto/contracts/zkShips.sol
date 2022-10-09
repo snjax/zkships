@@ -131,7 +131,6 @@ contract zkShips is
     }
 
     function moving (uint256 _gameId, bool[FiledSize][FiledSize] memory _shipPositions) public {
-        //проверка хода
         require(_exists(_gameId));
         if (_checkStep(_gameId, msg.sender))
         {
