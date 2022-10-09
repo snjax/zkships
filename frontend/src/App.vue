@@ -1,5 +1,7 @@
 <template>
-  <router-view></router-view>
+  <div class="root">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
@@ -8,7 +10,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -16,5 +18,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.buttons {
+  margin-bottom: 20px;
+
+  .btn {
+    margin-right: 10px;
+  }
 }
 </style>

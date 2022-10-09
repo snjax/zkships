@@ -1,0 +1,26 @@
+.contract{
+
+  & + &{
+    margin-top: 30px
+  }
+
+  &__name{
+    font-size: 18px;
+    padding: 20px 0;
+  }
+
+  &__tokens{
+    border-radius: var(--radius);
+    background: var(--contract-bg);
+    padding: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
+    position: relative;
+    min-height: 200px;
+
+    &.loading{
+      display: block;
+    }
+  }
+}

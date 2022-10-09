@@ -1,0 +1,42 @@
+.search{
+  position: relative;
+  overflow: hidden;
+
+  input[type=text]{
+    background: transparent;
+    padding-left: 40px;
+    border: none;
+    color: var(--main-color);
+    z-index: 2;
+    position: relative;
+
+    &:focus{
+      background: var(--search-background);
+    }
+  }
+
+  input[type=text]:focus + &__icon{
+    z-index: 2;
+  }
+
+  &__icon{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & > svg{
+      width: 25px;
+      height: 25px;
+
+      path{
+        stroke: var(--main-color);
+        stroke-opacity: .5
+      }
+    }
+  }
+}

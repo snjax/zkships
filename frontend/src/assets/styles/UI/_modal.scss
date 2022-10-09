@@ -1,0 +1,104 @@
+.modal{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+  background: var(--modal-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__window{
+    width: 100%;
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    padding: 30px;
+    display: grid;
+    grid-template-columns: 100%;
+    gap: var(--form-offset);
+    max-height: calc(100% - 40px);
+    overflow: auto;
+    grid-template-rows: auto 1fr auto;
+    position: relative;
+    margin: 0 15px;
+
+    @media screen and (max-width: $mobile-width) {
+      padding: 20px;
+    }
+  }
+
+  &.wallet &__window{
+    position: relative;
+  }
+
+  &.size-s &__window{
+    max-width: 400px;
+  }
+
+  &__title{
+    display: grid;
+    grid-template-columns: auto 15px;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 600;
+
+    & > div{
+      text-align: left;
+      align-self: center;
+    }
+  }
+
+  &__sub-title{
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  &__close{
+    cursor: pointer;
+    justify-self: center;
+    align-self: center;
+    position: relative;
+    z-index: 3;
+
+    svg{
+      display: block;
+      width: 100%;
+
+      path{
+        stroke: var(--main-color);
+
+      }
+    }
+  }
+
+  &__content{
+    display: grid;
+    grid-template-columns: 100%;
+    gap: var(--form-offset);
+    overflow: auto;
+  }
+
+  &.no-title &__close{
+    width: 15px;
+  }
+
+  &.no-title &__content{
+    top: -35px;
+    padding-right: 30px;
+    position: relative;
+    z-index: 2;
+  }
+
+
+  &__controls{
+
+  }
+
+  &__two-btn{
+    display: flex;
+    justify-content: space-between;
+  }
+}

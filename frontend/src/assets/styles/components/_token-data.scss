@@ -1,0 +1,23 @@
+.token-data{
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+
+  & > div:first-child{
+    padding: 10px 0 40px 10px;
+  }
+
+  .toggle{
+    position: relative;
+  }
+
+  &__visual{
+    display: grid;
+    grid-template-columns: 100px auto;
+    gap: 20px;
+  }
+
+  &__json{
+    height: 100%
+  }
+}
