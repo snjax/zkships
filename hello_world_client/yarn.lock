@@ -170,11 +170,6 @@
     threads "1.7.0"
     tslib "^2.0.0"
 
-"@noir-lang/noir_wasm@^0.10.0":
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/@noir-lang/noir_wasm/-/noir_wasm-0.10.0.tgz#9223c2ab92cf24da7e483c4131179a4d62a59c19"
-  integrity sha512-ZoNlOqjGxf0YDCQP/tmD+2KsCePvjc0xcMiefmNREDyE3rpDCUiLt6B7kaXztFqPxpT7hi8+ARFUx7cZyqqZtg==
-
 "@parcel/bundler-default@2.7.0":
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/@parcel/bundler-default/-/bundler-default-2.7.0.tgz#17d94be7185f29773aa21454063cbba3cdc03d49"
