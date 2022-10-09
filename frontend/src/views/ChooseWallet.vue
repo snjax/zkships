@@ -55,55 +55,40 @@
 <script setup>
 import ModalWindow from '@/components/UI/ModalWindow'
 import LoaderElement from '@/components/UI/LoaderIndicator'
-// import { useWalletConnection } from "@/components/helpers/WalletConnect";
-import { ref } from "vue";
-// import AppConnector from '@/crypto/AppConnector'
-// import { Ethereum } from '@/crypto/helpers'
+import { ref, computed } from 'vue';
+import { storeToRefs } from 'pinia'
+import { useCryptoStore } from "@/stores/crypto";
+import { useRouter } from 'vue-router'
 
-// const {
-//   isOpen,
-//   networks,
-//   wallets,
-//   selectedNetwork,
-//   selectedWallet,
-//   networkAssets,
-//   close,
-//   setNetwork,
-//   setWallet,
-//   submitAvailable
-// } = useWalletConnection()
+const { connect } = useCryptoStore()
+const { networks, wallets } = storeToRefs(useCryptoStore())
+const selectedNetwork = ref(null)
+const selectedWallet = ref(null)
+const networkAssets = '/img/connect/'
+const submitAvailable = computed(() => selectedNetwork.value && selectedWallet.value)
 
 const isConnecting = ref(false)
+const router = useRouter()
 
-const submit = async () => {
-  // try {
-  //   AppConnector.init(Ethereum.ConnectorTypes.RARIBLE)
-  //     .then(({ connector }) => {
-  //       connector.isUserConnected()
-  //         .then(() => {
-  //           afterConnect()
-  //         })
-  //         .catch(() => {
-  //           console.log(connector, 'connector1')
-  //           // console.log('user not connected')
-  //           let walletValue = ''
-  //           if (selectedWallet.value === '1inch' && connector.checkInchInjected()) walletValue = 'Metamask'
-  //           else walletValue = (selectedWallet.value === '1inch') ? 'walletconnect' : selectedWallet.value
-  //           connector.connectToWallet(walletValue)
-  //             .then(() => {
-  //               afterConnect()
-  //             })
-  //             .catch(e => {
-  //               console.log(`Error connecting to ${selectedWallet.value} `, e)
-  //             })
-  //         })
-  //     })
-  // }
-  // catch (e) {
-  //   console.log(e);
-  // }
-  // finally {
-  //   isConnecting.value = false
-  // }
+function setNetwork(network) {
+  selectedNetwork.value = network
+}
+
+function setWallet(wallet) {
+  selectedWallet.value = wallet
+}
+
+async function submit() {
+  try {
+    isConnecting.value = true
+    await connect(selectedNetwork.value, selectedWallet.value)
+  }
+  catch (e) {
+    console.error(e);
+  }
+  finally {
+    isConnecting.value = false
+    await router.push({ path: '/lobby' })
+  }
 }
 </script>

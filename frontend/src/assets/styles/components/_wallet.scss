@@ -4,6 +4,10 @@
       display: grid;
       grid-template-columns: 1fr auto;
       padding-bottom: 20px;
+
+      * {
+        text-align: start;
+      }
     }
 
     &-items{

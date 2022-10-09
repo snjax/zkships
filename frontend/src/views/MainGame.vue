@@ -5,7 +5,7 @@
   </div>
   <div v-if="isGameStarted()" class="buttons">
     <button class="btn" @click="cancelMove">Cancel move</button>
-    <button class="btn" @click="endTurn">Finish</button>
+    <button class="btn" @click="onTurnFinish">Finish</button>
   </div>
   <GameField :ships="ships" @cell-clicked="onPlayerCellClicked" :selected-cell="selectedCell" :highlights="playerHighlights" />
   <GameField @cell-clicked="onOpponentCellClicked" :is-opponent="true" :highlights="opponentHighlights" />
@@ -14,10 +14,10 @@
 <script setup>
 import { computed } from 'vue'
 import GameField from '@/components/GameField.vue'
-import { GameState, MoveKind, useGameStore } from '@/stores/game'
+import {GameState, MoveKind, randomRange, useGameStore} from '@/stores/game'
 import { storeToRefs } from 'pinia'
 
-const { generateShips, selectCell, isShip, moveShip, attackShip, startGame, cancelMove, endTurn } = useGameStore()
+const { generateShips, selectCell, isShip, moveShip, attackShip, startGame, cancelMove, endTurn, receiveAttacks, startTurn } = useGameStore()
 const { ships, selectedCell, gameState, turnMoves } = storeToRefs(useGameStore())
 generateShips()
 
@@ -43,6 +43,12 @@ const opponentHighlights = computed(() => {
     }
   })
 })
+
+function onTurnFinish() {
+  endTurn()
+  receiveAttacks([randomRange(0, 24), randomRange(0, 24), randomRange(0, 24)])
+  startTurn()
+}
 
 function isGameStarted() {
   return gameState.value !== GameState.PREPARING
