@@ -12,6 +12,10 @@ contract zkShips is
     enum Status{ CREATED, INPROGRESS, CANCELED, FINISHED }
     enum StepType {SHOT, MOVING, SKIPPING}
 
+    event ChangeGameStatusMessage(uint256 message);
+    event StepMessage(uint256 message);
+    event ZkStepMessage(uint256 message);
+
     struct Player {
         address addr;
         bool [FiledSize][FiledSize] shipPositions;
@@ -48,24 +52,25 @@ contract zkShips is
         games[gameId].isExist=true;
         owners[gameId] = msg.sender;
         gameCount++;
+        emit ChangeGameStatusMessage(gameId);
         return gameId;
     }
 
     function getGames(Status _status) public view returns(Game[] memory filteredGames) {
-    Game[] memory gamesTemp = new Game[](gameCount);
-    uint count;
-    for(uint i = 0; i<gameCount; i++){
-      if (games[i].status == _status) {
-        gamesTemp[count] = games[i];
-        count += 1;
-      }
-    }
+        Game[] memory gamesTemp = new Game[](gameCount);
+        uint count;
+        for(uint i = 0; i<gameCount; i++){
+        if (games[i].status == _status) {
+            gamesTemp[count] = games[i];
+            count += 1;
+        }
+        }
 
-    filteredGames = new Game[](count);
-    for(uint i = 0; i<count; i++){
-      filteredGames[i] = gamesTemp[i];
+        filteredGames = new Game[](count);
+        for(uint i = 0; i<count; i++){
+        filteredGames[i] = gamesTemp[i];
+        }
     }
-  }
 
     function join (uint256 _gameId, bool[FiledSize][FiledSize] memory _shipPositions) public returns (bool) {
         require(_exists(_gameId));
@@ -75,6 +80,7 @@ contract zkShips is
         games[_gameId].competitor.shipPositions = _shipPositions;
         games[_gameId].competitor.shipsLeft = ShipsCount;
         games[_gameId].isStepOfCreator = true;
+        emit ChangeGameStatusMessage(_gameId);
         return true;
     }
 
@@ -99,6 +105,7 @@ contract zkShips is
     function _finish (uint256 _gameId, Player memory _winner) private {
         games[_gameId].status = Status.FINISHED;
         games[_gameId].winner = _winner;
+        emit ChangeGameStatusMessage(_gameId);
     }
 
     function _checkMove (bool[FiledSize][FiledSize] memory _oldPositions, bool[FiledSize][FiledSize] memory _newPositions) private view returns (bool){
@@ -118,7 +125,10 @@ contract zkShips is
         }
     }
 
-
+    function zkStep (uint256 _gameId, uint256 _data) public returns (uint256) {
+        //some zk magic
+        emit ZkStepMessage(_gameId);
+    }
 
     function moving (uint256 _gameId, bool[FiledSize][FiledSize] memory _shipPositions) public {
         //проверка хода
@@ -136,23 +146,23 @@ contract zkShips is
                 }
             }
             _changeStep(_gameId);
+            emit StepMessage(_gameId);
         }
-        
     }
 
-    function shotting (uint256 _gameId, uint256 x, uint256 y) public {
+    function shotting (uint256 _gameId, uint256 _x, uint256 _y) public {
         if (_checkStep(_gameId, msg.sender))
         {
             if (msg.sender == games[_gameId].creator.addr) {
-                if(games[_gameId].competitor.shipPositions[x][y]) {
-                    games[_gameId].competitor.shipPositions[x][y]=false;
+                if(games[_gameId].competitor.shipPositions[_x][_y]) {
+                    games[_gameId].competitor.shipPositions[_x][_y]=false;
                     games[_gameId].competitor.shipsLeft--;
                     if(games[_gameId].competitor.shipsLeft == 0) {
                         _finish(_gameId, games[_gameId].creator);
                     }
                 }
                 else {
-                    games[_gameId].creator.shipPositions[x][y]=false;
+                    games[_gameId].creator.shipPositions[_x][_y]=false;
                     games[_gameId].creator.shipsLeft--;
                     if(games[_gameId].creator.shipsLeft == 0) {
                         _finish(_gameId, games[_gameId].competitor);
@@ -160,15 +170,15 @@ contract zkShips is
                 }
             }
             else  {
-                if(games[_gameId].creator.shipPositions[x][y]) {
-                    games[_gameId].creator.shipPositions[x][y]=false;
+                if(games[_gameId].creator.shipPositions[_x][_y]) {
+                    games[_gameId].creator.shipPositions[_x][_y]=false;
                     games[_gameId].creator.shipsLeft--;
                     if(games[_gameId].creator.shipsLeft == 0) {
                         _finish(_gameId, games[_gameId].competitor);
                     }
                 }
                 else {
-                    games[_gameId].competitor.shipPositions[x][y]=false;
+                    games[_gameId].competitor.shipPositions[_x][_y]=false;
                     games[_gameId].competitor.shipsLeft--;
                     if(games[_gameId].competitor.shipsLeft == 0) {
                         _finish(_gameId, games[_gameId].creator);
@@ -176,12 +186,14 @@ contract zkShips is
                 }
             }
             _changeStep(_gameId);
+            emit StepMessage(_gameId);
         }
     }
 
     function skipping (uint256 _gameId) public {
         if (_checkStep(_gameId, msg.sender)) {
             _changeStep(_gameId);
+            emit StepMessage(_gameId);
         }
     }
 

@@ -1,0 +1,405 @@
+{
+  "manifestVersion": "3.2",
+  "admin": {
+    "address": "0x5F2688F00b250E423C6b461115e9eff52f1D7434",
+    "txHash": "0x449e8af0257b5b86c34e9fb3be6f9bae6b5081d3b69d6eb422da63c793e8ed81"
+  },
+  "proxies": [
+    {
+      "address": "0x4438797659A677C249ae58427D013C15d2A4FA5A",
+      "txHash": "0xedf2030ddf085d708c40104db6248f48f6af6f8fa790747affe08012a6c41a33",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x6d16BD9F0320F284225e9E634495a1f03Fc7e5B8",
+      "txHash": "0xd7ba0056209b6ebbc40ca6e8206e6488e7b808fa572e9e0fa4bbca9b9a4af9e9",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "9e5f4effbd7399907b0b85bf128bd8ba754edab87a19cc0454a0476e6e2fd9d0": {
+      "address": "0x7C45fd24cB04d5f8483afC71D6f4de49B7aC09aF",
+      "txHash": "0xfd22f3c7862a1d70883ba57e204040c80b7c0250e2e30c41ecaadb3d9edc4c4f",
+      "layout": {
+        "solcVersion": "0.8.14",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:36"
+          },
+          {
+            "label": "_owner",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_address",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:22"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "52",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:94"
+          },
+          {
+            "label": "games",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_mapping(t_uint256,t_struct(Game)615_storage)",
+            "contract": "zkShips",
+            "src": "contracts/zkShips.sol:30"
+          },
+          {
+            "label": "gameCount",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_uint256",
+            "contract": "zkShips",
+            "src": "contracts/zkShips.sol:31"
+          },
+          {
+            "label": "owners",
+            "offset": 0,
+            "slot": "103",
+            "type": "t_mapping(t_uint256,t_address)",
+            "contract": "zkShips",
+            "src": "contracts/zkShips.sol:32"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_array(t_bool)5_storage)5_storage": {
+            "label": "bool[5][5]",
+            "numberOfBytes": "160"
+          },
+          "t_array(t_bool)5_storage": {
+            "label": "bool[5]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_enum(Status)583": {
+            "label": "enum zkShips.Status",
+            "members": [
+              "CREATED",
+              "INPROGRESS",
+              "CANCELED",
+              "FINISHED"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_uint256,t_address)": {
+            "label": "mapping(uint256 => address)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(Game)615_storage)": {
+            "label": "mapping(uint256 => struct zkShips.Game)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(Game)615_storage": {
+            "label": "struct zkShips.Game",
+            "members": [
+              {
+                "label": "status",
+                "type": "t_enum(Status)583",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "creator",
+                "type": "t_struct(Player)598_storage",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "competitor",
+                "type": "t_struct(Player)598_storage",
+                "offset": 0,
+                "slot": "8"
+              },
+              {
+                "label": "winner",
+                "type": "t_struct(Player)598_storage",
+                "offset": 0,
+                "slot": "15"
+              },
+              {
+                "label": "isStepOfCreator",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "22"
+              },
+              {
+                "label": "isExist",
+                "type": "t_bool",
+                "offset": 1,
+                "slot": "22"
+              }
+            ],
+            "numberOfBytes": "736"
+          },
+          "t_struct(Player)598_storage": {
+            "label": "struct zkShips.Player",
+            "members": [
+              {
+                "label": "addr",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "shipPositions",
+                "type": "t_array(t_array(t_bool)5_storage)5_storage",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "shipsLeft",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "6"
+              }
+            ],
+            "numberOfBytes": "224"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "a40aa13fc1171ebe90ea4d301203e52142d3d6c3efef495e94335fe743f8dba6": {
+      "address": "0x438CE1e9A3701fe9012dAB7Ce42D073ED86d2e4B",
+      "txHash": "0xd9f9903725f78079f51a2d7efdfaabaff0a31bc923b23ff28ef6033cefd68436",
+      "layout": {
+        "solcVersion": "0.8.14",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:36"
+          },
+          {
+            "label": "_owner",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_address",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:22"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "52",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:94"
+          },
+          {
+            "label": "games",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_mapping(t_uint256,t_struct(Game)627_storage)",
+            "contract": "zkShips",
+            "src": "contracts/zkShips.sol:34"
+          },
+          {
+            "label": "gameCount",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_uint256",
+            "contract": "zkShips",
+            "src": "contracts/zkShips.sol:35"
+          },
+          {
+            "label": "owners",
+            "offset": 0,
+            "slot": "103",
+            "type": "t_mapping(t_uint256,t_address)",
+            "contract": "zkShips",
+            "src": "contracts/zkShips.sol:36"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_array(t_bool)5_storage)5_storage": {
+            "label": "bool[5][5]",
+            "numberOfBytes": "160"
+          },
+          "t_array(t_bool)5_storage": {
+            "label": "bool[5]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_enum(Status)583": {
+            "label": "enum zkShips.Status",
+            "members": [
+              "CREATED",
+              "INPROGRESS",
+              "CANCELED",
+              "FINISHED"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_uint256,t_address)": {
+            "label": "mapping(uint256 => address)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(Game)627_storage)": {
+            "label": "mapping(uint256 => struct zkShips.Game)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(Game)627_storage": {
+            "label": "struct zkShips.Game",
+            "members": [
+              {
+                "label": "status",
+                "type": "t_enum(Status)583",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "creator",
+                "type": "t_struct(Player)610_storage",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "competitor",
+                "type": "t_struct(Player)610_storage",
+                "offset": 0,
+                "slot": "8"
+              },
+              {
+                "label": "winner",
+                "type": "t_struct(Player)610_storage",
+                "offset": 0,
+                "slot": "15"
+              },
+              {
+                "label": "isStepOfCreator",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "22"
+              },
+              {
+                "label": "isExist",
+                "type": "t_bool",
+                "offset": 1,
+                "slot": "22"
+              }
+            ],
+            "numberOfBytes": "736"
+          },
+          "t_struct(Player)610_storage": {
+            "label": "struct zkShips.Player",
+            "members": [
+              {
+                "label": "addr",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "shipPositions",
+                "type": "t_array(t_array(t_bool)5_storage)5_storage",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "shipsLeft",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "6"
+              }
+            ],
+            "numberOfBytes": "224"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    }
+  }
+}
