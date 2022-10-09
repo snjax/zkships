@@ -7,6 +7,15 @@ Here is demo of Seabattle game, implemented on [Noir](https://noir-lang.github.i
 
 Circuits are available [here](https://github.com/snjax/zkships/blob/master/circuit/src/main.nr).
 
+## Game rules
+
+Variation of the Battleship game is used:
+
+The ocean is a 5x5 grid, on which each ship takes up one square. Each player has 3 ships. Ships cannot be positioned on the neighbor squares.
+
+On every turn each ships can move or fire. Each ship can sustain 3 hits before sinking. Infromation about successfull hit or sinking must be announced to one's opponent.
+
+Game ends when all ships are sunk for some player.
 
 
 ## Build
