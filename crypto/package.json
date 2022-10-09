@@ -1,7 +1,7 @@
 {
   "name": "hardhat-project",
   "scripts": {
-    "deploy": "npx hardhat run --network mumbay scripts/deploy.js"
+    "deploy": "npx hardhat run --network goerli scripts/deploy.js"
   },
   "license": "MIT",
   "devDependencies": {

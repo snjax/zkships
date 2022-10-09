@@ -4,7 +4,7 @@ async function main() {
   const [admin] = await ethers.getSigners();
 
   const ZKShips = await ethers.getContractFactory("zkShips");
-  const zkShips = await ZKShips.deploy();
+  const zkShips = await upgrades.deployProxy(ZKShips, ["zkShips", "zkShips"]);
   await zkShips.deployed();
   console.log("zkShips contart deployed to:", zkShips.address);
 }
