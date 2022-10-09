@@ -8,14 +8,19 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
+    "@noir-lang/aztec_backend": "^0.11.0",
     "@noir-lang/barretenberg": "^2.19.0",
     "@noir-lang/noir_wasm": "^0.10.0",
+    "circomlibjs": "^0.1.7",
     "comlink": "^4.3.1",
+    "crypto": "^1.0.1",
     "util": "https://github.com/elliotsayes/node-util-text-encoding"
   },
   "devDependencies": {
+    "assert": "^2.0.0",
     "crypto-browserify": "^3.12.0",
     "events": "^3.3.0",
+    "os-browserify": "^0.3.0",
     "parcel": "^2.7.0",
     "patch-package": "^6.4.7",
     "path-browserify": "^1.0.1",
