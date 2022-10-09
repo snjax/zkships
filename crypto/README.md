@@ -16,3 +16,6 @@ npx hardhat help
 
 npm run deploy-base -env=.env
 npm run update -env=.env
+
+Goerli contact
+0x6d16BD9F0320F284225e9E634495a1f03Fc7e5B8
